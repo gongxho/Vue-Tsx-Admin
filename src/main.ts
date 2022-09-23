@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import App from './App';
 import router from './router';
 import '/@/style/index.scss';
-import pinia from './store/index';
+import pinia from './stores/index';
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'

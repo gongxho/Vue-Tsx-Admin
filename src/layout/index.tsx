@@ -1,57 +1,110 @@
-import { onBeforeMount, onUnmounted, getCurrentInstance, defineComponent, defineAsyncComponent } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useThemeConfig } from '/@/store/themeConfig';
-import { Local } from '/@/utils/storage';
+import { defineComponent, computed, onBeforeMount, KeepAlive, Transition, h, resolveComponent, resolveDynamicComponent, ref } from "vue";
+import { useStore } from '/@/stores/app'
+import { useStoreKeep } from '/@/stores/keepAlive'
+import { useEventListener } from "@vueuse/core";
+// import Logo from "./Logo/index";
+import Menu from "./Menu/index";
+import Header from "./Header/index";
+import './index.scss'
+// import Tabs from "./Tabs/index.vue";
+
+
+// `<component :is="name"></component>`
 
 export default defineComponent({
-	name: 'layout',
-	components: {
-		defaults: defineAsyncComponent(() => import('/@/layout/main/defaults.vue')),
-		// classic: defineAsyncComponent(() => import('/@/layout/main/classic.vue')),
-		// transverse: defineAsyncComponent(() => import('/@/layout/main/transverse.vue')),
-		// columns: defineAsyncComponent(() => import('/@/layout/main/columns.vue')),
-	},
-  props: {
-    msg: {
-      type: String,
-      default: ''
-    }
-  },
-  setup(prop) {
-    // const count = ref(0)
-    const { proxy } = getCurrentInstance();
-    const storesThemeConfig = useThemeConfig();
-    const { themeConfig } = storeToRefs(storesThemeConfig);
-    // 窗口大小改变时(适配移动端)
-    const onLayoutResize = () => {
-        if (!Local.get('oldLayout')) Local.set('oldLayout', themeConfig.value.layout);
-        const clientWidth = document.body.clientWidth;
-        if (clientWidth < 1000) {
-            themeConfig.value.isCollapse = false;
-            proxy.mittBus.emit('layoutMobileResize', {
-                layout: 'defaults',
-                clientWidth,
-            });
-        } else {
-            proxy.mittBus.emit('layoutMobileResize', {
-                layout: Local.get('oldLayout') ? Local.get('oldLayout') : themeConfig.value.layout,
-                clientWidth,
-            });
-        }
-    };
-    // 页面加载前
-    onBeforeMount(() => {
-        onLayoutResize();
-        window.addEventListener('resize', onLayoutResize);
-    });
-    // 页面卸载时
-    onUnmounted(() => {
-        window.removeEventListener('resize', onLayoutResize);
-    });
-    return () => (
-      <>
-      <component is={themeConfig.layout} />
-      </>
-    );
-  },
+    components: {
+        KeepAlive,
+        Transition,
+        // Logo,
+        Menu,
+        Header,
+        // Tabs,
+    },
+    setup() {
+        const store = useStore();
+        const storekeep = useStoreKeep();
+        // computed
+        const isCollapse = computed(() => store.isCollapse);
+        const contentFullScreen = computed(() => store.contentFullScreen);
+        const showLogo = computed(() => store.showLogo);
+        const showTabs = computed(() => store.showTabs);
+        const keepAliveComponentsName = computed(() => storekeep.keepAliveComponents);
+        // 页面宽度变化监听后执行的方法
+        const resizeHandler = () => {
+            if (document.body.clientWidth <= 1000 && !isCollapse.value) {
+                store.isCollapseChange(true);
+            } else if (document.body.clientWidth > 1000 && isCollapse.value) {
+                store.isCollapseChange(false);
+            }
+        };
+        // const hello = (props, context) => h(resolveComponent('a-button'), null, 'hello vue3')
+        // 初始化调用
+        resizeHandler();
+        // beforeMount
+        onBeforeMount(() => {
+            // 监听页面变化
+            useEventListener("resize", resizeHandler);
+        });
+        // methods
+        // 隐藏菜单
+        const hideMenu = () => {
+            store.isCollapseChange(true);
+        };
+        let tabComponent = ref('Logo');
+        return () => (
+            <div>
+                {/* <h1>动态组件示范</h1>
+                <component is={Logo} />
+                <button onClick={() => tabComponent.value = 'Logo'}>comp1</button>
+                <button onClick={() => tabComponent.value = 'Header'}>comp2</button>
+                {h(resolveComponent(tabComponent.value))}
+                h(resolveDynamicComponent(tabComponent.value)) */}
+                <el-container style="height: 100vh">
+                    <div
+                        class="mask"
+                        v-show={isCollapse && contentFullScreen}
+                        onClick={hideMenu}
+                    ></div>
+                    <el-aside
+                        width={!isCollapse ? '60px' : '250px'}
+                        class={isCollapse ? 'hide-aside' : 'show-side'}
+                        v-show={contentFullScreen}
+                    >
+                        {/* {!showLogo ? <Logo /> : null} */}
+                        <Menu />
+                    </el-aside>
+                    <el-container>
+                        <el-header v-show={contentFullScreen}>
+                            <Header />
+                        </el-header>
+                        {/* <Tabs v-show={showTabs} /> */}
+                        <el-main>
+                            {/* <router-view v-slots={ Component, route }>
+                                <Transition
+                                    name={'fade-transform'}
+                                    mode="out-in"
+                                >
+                                    {
+                                        keepAliveComponentsName
+                                            ? <KeepAlive include="keepAliveComponentsName" >{h(resolveComponent(tabComponent.value))}</KeepAlive>
+                                            : h(resolveComponent(tabComponent.value))
+                                    }
+                                </Transition>
+                            </router-view> */}
+                            <router-view v-slots={{
+                                default: (scope:any) => (
+                                <Transition name={'fade-transform'} mode="out-in"><KeepAlive>{scope.Component}</KeepAlive></Transition>),
+                            }}
+                            ></router-view>
+                        </el-main>
+                    </el-container>
+                </el-container>
+            </div>
+        )
+    },
+    // `<component :is="name"></component>`
+    // render() {
+    //     const Component = resolveDynamicComponent(this.name)
+    //     return h(Component)
+    // }
 });
