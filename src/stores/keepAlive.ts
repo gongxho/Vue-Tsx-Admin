@@ -17,24 +17,24 @@ export const useStoreKeep = defineStore('keepAlive', {
     keepAliveComponentsName: [] // 需要缓存的组件名称
   }),
   getters: {
-    keepAliveComponents: (state) => {
+    keepAliveComponentsNames: (state) => {
       return state.keepAliveComponentsName
     }
   },
   // 定义业务逻辑, Actions 相当于组件中的 methods,
   actions: {
     // 重置，Push, splice keep-alive对象
-    setKeepAliveComponentsName(state: keepAliveState, nameArr: []) {
-      state.keepAliveComponentsName = nameArr
+    setKeepAliveComponentsName(nameArr: []) {
+      this.keepAliveComponentsName = nameArr
     },
-    addKeepAliveComponentsName(state: keepAliveState, name: string) {
-      state.keepAliveComponentsName.push(name)
+    addKeepAliveComponentsName(name: string) {
+      this.keepAliveComponentsName.push(name)
     },
-    delKeepAliveComponentsName(state: keepAliveState, name: string) {
-      const key = state.keepAliveComponentsName.indexOf(name)
+    delKeepAliveComponentsName(name: string) {
+      const key = this.keepAliveComponentsName.indexOf(name)
       if (key !== -1) {
-        state.keepAliveComponentsName.splice(key, 1)
-        console.log(state.keepAliveComponentsName)
+        this.keepAliveComponentsName.splice(key, 1)
+        console.log(this.keepAliveComponentsName)
       }
     }
     // stateChange(option: Option<appState>) {

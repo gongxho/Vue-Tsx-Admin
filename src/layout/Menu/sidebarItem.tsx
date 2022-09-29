@@ -16,7 +16,6 @@ const SidebarItem = defineComponent({
     },
     setup(props) {
         const router = useRouter()
-        console.log(props)
         let data: Partial<RouteRecordRaw> = {
         }
 

@@ -7,19 +7,19 @@ import { useRouter, useRoute } from 'vue-router'
 import Github from './functionList/github'
 import { Expand, Fold } from '@element-plus/icons-vue'
 // import Theme from './functionList/theme.vue'
-// import Breadcrumb from './Breadcrumb.vue'
-// import PasswordLayer from './passwordLayer.vue'
-import './header.scss'
+import Breadcrumb from './Breadcrumb'
+import PasswordLayer from './passwordLayer'
+import './index.scss'
 
 export default defineComponent({
   components: {
     // FullScreen,
-    // Breadcrumb,
+    Breadcrumb,
     // Word,
     // SizeChange,
     Github,
     // Theme,
-    // PasswordLayer
+    PasswordLayer
   },
   setup() {
     const store = useStore()
@@ -37,23 +37,34 @@ export default defineComponent({
     }
 
     // login out the system
-    // const loginOut = () => {
-    //   store.dispatch('user/loginOut')
-    // }
+    const loginOut = () => {
+      // store.dispatch('user/loginOut')
+    }
 
     const showPasswordLayer = () => {
       layer.show = true
     }
+
+    const slots = {
+      dropdown: () => {
+          return (
+            <el-dropdown-menu>
+              <el-dropdown-item onClick={showPasswordLayer}>修改密码</el-dropdown-item>
+              <el-dropdown-item onClick={loginOut}>退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+            )
+      }
+  }
     return () => (
       <header>
         <div class="left-box">
           {/* <!-- 收缩按钮 --> */}
           <div class="menu-icon" onClick={opendStateChange}>
-            <el-icon>
+            <el-icon class={isCollapse ? 'sfont head-fold system-s-unfold' : 'sfont head-fold system-s-fold'}>
               {!isCollapse.value ? <Expand /> : <Fold />}
               </el-icon>
           </div>
-          {/* <Breadcrumb /> */}
+          <Breadcrumb />
         </div>
         <div class="right-box">
           {/* <!-- 快捷功能按钮 --> */}
@@ -67,21 +78,12 @@ export default defineComponent({
             </div>
           </div>
           {/* <!-- 用户信息 --> */}
-          {/* <div class="user-info">
-          <el-dropdown>
-            <span class="el-dropdown-link">
-              {{ $t('message.system.user') }}
-              <i class="sfont system-xiala"></i>
-            </span>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item @click="showPasswordLayer">{{ $t('message.system.changePassword') }}</el-dropdown-item>
-                <el-dropdown-item @click="loginOut">{{ $t('message.system.loginOut') }}</el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
+          <div class="user-info">
+          <el-dropdown v-slots={slots}>
+            <span class="el-dropdown-link"> admin </span>
           </el-dropdown>
         </div>
-        <password-layer :layer="layer" v-if="layer.show" /> */}
+        {layer.show ? <password-layer layer={layer} /> : null}
         </div>
       </header>
     )

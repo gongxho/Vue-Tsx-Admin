@@ -1,28 +1,16 @@
-import { ChromeFilled } from '@element-plus/icons-vue'
 import { defineComponent } from 'vue'
+import { ChromeFilled } from '@element-plus/icons-vue'
+import './funlist.scss'
 
 export default defineComponent({
   setup() {
     return () => (
-      <a href="https://github.com/cmdparkour/vue-admin-box" target="_blank" title="github">
-        <el-icon><ChromeFilled /></el-icon>
+      <a href="https://github.com/" target="_blank" title="github">
+        <el-icon class="icon-github">
+          <ChromeFilled />
+           {/* fa-github */}
+        </el-icon>
       </a>
     )
   }
 })
-
-
-{/* <style lang="scss" scoped>
-  a {
-    &:focus {
-      outline: none;
-    }
-  }
-  i {
-    cursor: pointer;
-    font-size: 18px;
-    &:focus {
-      outline: none;
-    }
-  }
-</style> */}

@@ -1,0 +1,12 @@
+.app-breadcrumb.el-breadcrumb {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 50px;
+  .no-redirect {
+    color: var(--system-primary-color);
+    cursor: text;
+  }
+  a {
+    color: var(--system-header-text-color);
+  }
+}
