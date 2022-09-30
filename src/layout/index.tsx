@@ -47,25 +47,24 @@ export default defineComponent({
         const hideMenu = () => {
             store.isCollapseChange(true);
         };
-        let tabComponent = ref('Logo');
         return () => (
             <div>
                 <el-container style="height: 100vh">
                     <div
                         class="mask"
-                        v-show={isCollapse && contentFullScreen}
+                        // v-show={isCollapse.value && contentFullScreen.value}
                         onClick={hideMenu}
                     ></div>
                     <el-aside
-                        width={!isCollapse ? '60px' : '250px'}
-                        class={isCollapse ? 'hide-aside' : 'show-side'}
-                        v-show={contentFullScreen}
+                        width={!isCollapse.value ? '60px' : '200px'}
+                        // class={isCollapse.value ? 'hide-aside' : 'show-side'}
+                        // v-show={contentFullScreen.value}
                     >
                         {showLogo ? <Logo /> : null}
                         <Menu />
                     </el-aside>
                     <el-container>
-                        <el-header v-show={contentFullScreen}>
+                        <el-header v-show={!contentFullScreen.value}>
                             <Header />
                         </el-header>
                         {/* <Tabs v-show={showTabs} /> */}

@@ -32,8 +32,8 @@ export default defineComponent({
     let isCollapse = ref(false)
     // isCollapse change to hide/show the sidebar
     const opendStateChange = () => {
-      isCollapse.value = !isCollapse.value
       store.isCollapseChange(!isCollapse.value)
+      isCollapse.value = !isCollapse.value
     }
 
     // login out the system
@@ -47,22 +47,22 @@ export default defineComponent({
 
     const slots = {
       dropdown: () => {
-          return (
-            <el-dropdown-menu>
-              <el-dropdown-item onClick={showPasswordLayer}>修改密码</el-dropdown-item>
-              <el-dropdown-item onClick={loginOut}>退出登录</el-dropdown-item>
-            </el-dropdown-menu>
-            )
+        return (
+          <el-dropdown-menu>
+            <el-dropdown-item onClick={showPasswordLayer}>修改密码</el-dropdown-item>
+            <el-dropdown-item onClick={loginOut}>退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        )
       }
-  }
+    }
     return () => (
       <header>
         <div class="left-box">
           {/* <!-- 收缩按钮 --> */}
-          <div class="menu-icon" onClick={opendStateChange}>
-            <el-icon class={isCollapse ? 'sfont head-fold system-s-unfold' : 'sfont head-fold system-s-fold'}>
+          <div class="menu-icon" onClick={() => opendStateChange()}>
+            <el-icon>
               {!isCollapse.value ? <Expand /> : <Fold />}
-              </el-icon>
+            </el-icon>
           </div>
           <Breadcrumb />
         </div>
@@ -79,11 +79,11 @@ export default defineComponent({
           </div>
           {/* <!-- 用户信息 --> */}
           <div class="user-info">
-          <el-dropdown v-slots={slots}>
-            <span class="el-dropdown-link"> admin </span>
-          </el-dropdown>
-        </div>
-        {layer.show ? <password-layer layer={layer} /> : null}
+            <el-dropdown v-slots={slots}>
+              <span class="el-dropdown-link"> admin </span>
+            </el-dropdown>
+          </div>
+          {layer.show ? <password-layer layer={layer} /> : null}
         </div>
       </header>
     )

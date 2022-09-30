@@ -3,10 +3,10 @@
   "version": "1.0.0-alpha",
   "scripts": {
     "dev": "vite",
-    "build": "vuedx-typecheck . && vite build",
+    "build": "vite build",
+    "build-only": "vuedx-typecheck . && vite build",
     "preview": "vite preview --port 4173",
-    "test:unit": "vitest --environment jsdom",
-    "build-only": "vite build"
+    "test:unit": "vitest --environment jsdom"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.9",

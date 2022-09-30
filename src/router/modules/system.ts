@@ -13,7 +13,7 @@ const route: Route[] = [
     component: createNameComponent(() => import('/@/layout/index')),
     hideMenu: true,
     redirect: '/404',
-    meta: { title: 'system' },
+    meta: { title: 'system', icon: 'system'},
     children: [
       {
         path: '/404',
@@ -34,7 +34,7 @@ const route: Route[] = [
   },
   {
     path: '/login',
-    component: createNameComponent(() => import('/@/views/system/login/index.vue')),
+    component: createNameComponent(() => import('/@/views/system/login/index')),
     hideMenu: true,
     meta: { title: 'login', hideTabs: true }
   },
@@ -44,7 +44,7 @@ const route: Route[] = [
     component: createNameComponent(() => import('/@/views/system/404/404')),
     // redirect: "/404",
     hideMenu: true,
-    meta: { title: '' },
+    meta: { title: 'unknow' },
   },
 ]
 

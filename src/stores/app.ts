@@ -52,6 +52,9 @@ export const useStore = defineStore('app', {
         },
         menuList: []
     }),
+    getters: {
+        isCollapseNew: (state) => state.isCollapse
+    },
     // 定义业务逻辑, Actions 相当于组件中的 methods,
     actions: {
         isCollapseChange(type: boolean) {

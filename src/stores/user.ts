@@ -29,7 +29,7 @@ export const useStore = defineStore('user', {
           this.tokenChange(res.data.token)
           this.getInfo({ token: res.data.token })
           .then(infoRes => {
-            resolve(res.data.token)
+            resolve(res.data)
           })
         }).catch(err => {
           reject(err)
