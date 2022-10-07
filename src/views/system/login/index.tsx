@@ -1,7 +1,7 @@
 import { toRefs, reactive, computed, defineComponent, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '/@/stores/themeConfig';
-import logoMini from '/@/assets/logo.png';
+import logoMini from '/@/assets/tsxtlogo.png';
 import loginIconTwo from '/@/assets/login-icon-two.svg';
 import { NextLoading } from '/@/utils/loading';
 import Account from '/@/views/system/login/component/account';
@@ -40,8 +40,8 @@ export default defineComponent({
 			<div class="login-container">
 				<div class="login-icon-group">
 					<div class="login-icon-group-title">
-						{/* <!-- <img :src="logoMini" /> --> */}
-						<div class="login-icon-group-title-text font25">@{getThemeConfig.value.globalViceTitle}</div>
+						<img src={logoMini} />
+						<div class="login-icon-group-title-text font25">{getThemeConfig.value.globalViceTitle}</div>
 					</div>
 					{/* <!-- <img :src="loginIconTwo" class="login-icon-group-icon" /> --> */}
 				</div>

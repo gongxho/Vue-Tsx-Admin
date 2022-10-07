@@ -6,7 +6,7 @@ const route: Route[] = [
     path: '/',
     component: createNameComponent(() => import('/@/layout/index')),
     hideMenu: true,
-    meta: { title: 'login', hideTabs: true }
+    meta: { title: 'index', hideTabs: true }
   },
   {
     path: '/system',
@@ -44,7 +44,7 @@ const route: Route[] = [
     component: createNameComponent(() => import('/@/views/system/404/404')),
     // redirect: "/404",
     hideMenu: true,
-    meta: { title: 'unknow' },
+    meta: { title: 'unknown' },
   },
 ]
 

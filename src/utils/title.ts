@@ -4,5 +4,5 @@ import { systemTitle } from '/@/config'
 
 export function changeTitle(name: any) {
   // document.title = `${t(name)}-${t(systemTitle)}`
-  document.title = `${name}-${systemTitle}`
+  document.title = `${name}`
 }

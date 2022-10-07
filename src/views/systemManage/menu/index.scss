@@ -1,0 +1,24 @@
+.layout-container {
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.box {
+    border: 1px solid #eee;
+    overflow-y: auto;
+    height: calc(100%);
+}
+
+.my-tree {
+    :deep(.el-tree-node__content) {
+        height: 36px;
+    }
+
+    :deep(.el-tree-node.is-current > .el-tree-node__content) {
+        // background-color: rgba(64, 158, 255, 0.4);
+    }
+
+    :deep(.el-tree-node > .el-tree-node__content) {
+        transition: 0.2s;
+    }
+}

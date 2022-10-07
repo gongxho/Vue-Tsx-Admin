@@ -1,7 +1,7 @@
 import { computed, defineComponent, PropType } from 'vue'
 import { RouteRecordRaw, useRouter } from 'vue-router'
 import path from 'path-browserify'
-import { useStore } from '/@/stores/app'
+import { useStoreApp } from '/@/stores/app'
 import { Location, Setting } from '@element-plus/icons-vue'
 
 const SidebarItem = defineComponent({
@@ -19,7 +19,7 @@ const SidebarItem = defineComponent({
     },
     setup(props) {
         const router = useRouter()
-        const store = useStore()
+        const store = useStoreApp()
         const isCollapse = computed(() => store.isCollapseNew)
         let data: Partial<RouteRecordRaw> = {}
 
@@ -62,7 +62,7 @@ const SidebarItem = defineComponent({
                     <el-sub-menu index={resolvePath(item.path)} v-slots={{
                         title: () => (
                             isCollapse.value
-                                ? (<div>
+                                ? (<div class="sub-menu-icon">
                                     <el-icon><Setting /></el-icon>
                                     <span>{item.meta!.title ? item.meta!.title : '未定义菜单名称'}</span>
                                 </div>)

@@ -1,5 +1,5 @@
 import { defineComponent, computed, onBeforeMount, KeepAlive, Transition, h, resolveComponent, resolveDynamicComponent, ref } from "vue";
-import { useStore } from '/@/stores/app'
+import { useStoreApp } from '/@/stores/app'
 import { useStoreKeep } from '/@/stores/keepAlive'
 import { useEventListener } from "@vueuse/core";
 import Logo from "./Logo/index";
@@ -18,14 +18,14 @@ export default defineComponent({
         // Tabs,
     },
     setup() {
-        const store = useStore();
-        const storekeep = useStoreKeep();
+        const store = useStoreApp();
+        const store_keep = useStoreKeep();
         // computed
         const isCollapse = computed(() => store.isCollapse);
         const contentFullScreen = computed(() => store.contentFullScreen);
         const showLogo = computed(() => store.showLogo);
         const showTabs = computed(() => store.showTabs);
-        const keepAliveComponentsName = computed(() => storekeep.keepAliveComponentsNames);
+        const keepAliveComponentsName = computed(() => store_keep.keepAliveComponentsNames);
         // 页面宽度变化监听后执行的方法
         const resizeHandler = () => {
             if (document.body.clientWidth <= 1000 && !isCollapse.value) {
