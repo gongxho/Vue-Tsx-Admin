@@ -13,8 +13,9 @@
  */
 import { reactive } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
-// import {useStore} from '/@/stores/user'
-// import {useStoreKeep} from '/@/stores/keepAlive'
+import { Session } from '/@/utils/storage';
+import {useStore} from '/@/stores/user'
+import {useStoreKeep} from '/@/stores/keepAlive'
 // import i18n from '/@/locale'
 import NProgress from '/@/utils/nprogress'
 import { changeTitle } from '/@/utils/title'
@@ -35,8 +36,6 @@ let modules = [
 
 console.log(modules)
 // const { t } = i18n.global
-// const store = useStore()
-// const storekeep = useStoreKeep()
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -44,36 +43,38 @@ const router = createRouter({
 })
 
 // 未授权时可访问的白名单
-// const whiteList = ['/login']
+const whiteList = ['/login']
 
 // 路由跳转前的监听操作
-// router.beforeEach((to, _from, next) => {
-//   NProgress.start();
-//   if (store.token) {
-//     to.meta.title ? (changeTitle(to.meta.title)) : "" // 动态title
-//     if (to.path === '/login') {
-//       next('/')
-//       return
-//     }
-//     next()
-//   } else if (whiteList.includes(to.path)) {
-//     to.meta.title ? (changeTitle(to.meta.title)) : "" // 动态title
-//     next()
-//   } else {
-//     next("/login"); // 全部重定向到登录页
-//     to.meta.title ? (changeTitle(to.meta.title)) : "" // 动态title
-//   }
-// });
+router.beforeEach((to, _from, next) => {
+  const store = useStore()
+  NProgress.start();
+  if (Session.get(("token"))) {
+    to.meta.title ? (changeTitle(to.meta.title)) : "" // 动态title
+    if (to.path === '/login') {
+      next('/')
+      return
+    }
+    next()
+  } else if (whiteList.includes(to.path)) {
+    to.meta.title ? (changeTitle(to.meta.title)) : "" // 动态title
+    next()
+  } else {
+    next("/login"); // 全部重定向到登录页
+    to.meta.title ? (changeTitle(to.meta.title)) : "" // 动态title
+  }
+});
 
 // 路由跳转后的监听操作
-// router.afterEach((to, _from) => {
-//   const keepAliveComponentsName = storekeep.keepAliveComponentsNames || [];
-//   const name = to.matched[to.matched.length - 1].components.default.name
-//   if (to.meta && to.meta.cache && name && !keepAliveComponentsName.includes(name)) {
-//     storekeep.addKeepAliveComponentsName(name);
-//   }
-//   NProgress.done()
-// });
+router.afterEach((to, _from) => {
+  const storekeep = useStoreKeep()
+  const keepAliveComponentsName = storekeep.keepAliveComponentsNames || [];
+  const name = to.matched[to.matched.length - 1].components.default.name
+  if (to.meta && to.meta.cache && name && !keepAliveComponentsName.includes(name)) {
+    storekeep.addKeepAliveComponentsName(name);
+  }
+  NProgress.done()
+});
 
 export { modules }
 

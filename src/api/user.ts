@@ -23,7 +23,6 @@ export function loginOutApi() {
   return request({
     url: '/user/out',
     method: 'post',
-    baseURL: '/mock'
   })
 }
 

@@ -1,12 +1,12 @@
 import { defineComponent, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import SidebarItem from './sidebarItem'
-import { useStore } from '/@/stores/app'
+import { useStoreApp } from '/@/stores/app'
 import './index.scss'
 
 export default defineComponent({
   setup() {
-    const store = useStore()
+    const store = useStoreApp()
     const isCollapse = computed(() => store.isCollapseNew)
     const routes = useRouter().options.routes
     const isShowRoutes = computed(() => {

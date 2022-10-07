@@ -1,5 +1,6 @@
 import { defineComponent, computed, reactive, ref } from 'vue'
-import { useStore } from '/@/stores/app'
+import { useStore } from '/@/stores/user'
+import { useStoreApp } from '/@/stores/app'
 import { useRouter, useRoute } from 'vue-router'
 // import FullScreen from './functionList/fullscreen.vue'
 // import Word from './functionList/word.vue'
@@ -23,6 +24,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore()
+    const store_app = useStoreApp()
     const router = useRouter()
     const route = useRoute()
     const layer = reactive({
@@ -32,13 +34,13 @@ export default defineComponent({
     let isCollapse = ref(false)
     // isCollapse change to hide/show the sidebar
     const opendStateChange = () => {
-      store.isCollapseChange(!isCollapse.value)
+      store_app.isCollapseChange(!isCollapse.value)
       isCollapse.value = !isCollapse.value
     }
 
     // login out the system
     const loginOut = () => {
-      // store.dispatch('user/loginOut')
+      store.loginOut()
     }
 
     const showPasswordLayer = () => {

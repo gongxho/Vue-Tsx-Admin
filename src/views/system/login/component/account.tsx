@@ -83,6 +83,7 @@ export default defineComponent({
 						Cookies.set('userName', state.ruleForm.userName);
 						// ElMessage.success({ message: '登录成功', type: 'success', showClose: true, duration: 1000 })
 						signInSuccess();
+						location.reload()
 					}
 					state.loading.signIn = false
 					return
@@ -153,7 +154,7 @@ export default defineComponent({
 					</el-col>
 					<el-col span={1}></el-col>
 					<el-col span={8}>
-						<el-button class="login-content-code">1234</el-button>
+						<el-button class="login-content-code">验证码</el-button>
 					</el-col>
 				</el-form-item>
 				<el-form-item class="login-animation4">

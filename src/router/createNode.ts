@@ -9,7 +9,7 @@ export function createNameComponent(component: () => Promise<any>): () => Promis
   return () => {
     return new Promise((resolve) => {
       component().then((comm: DefineComponent<{}, {}, any>) => {
-        const name = (comm.default.name || 'vueAdminBox') + '$' + Date.now();
+        const name = (comm.default.name || 'vueTsxAdmin') + '$' + Date.now();
         const tempComm = defineComponent({
           name,
           setup() {
