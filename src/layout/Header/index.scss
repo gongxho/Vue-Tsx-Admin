@@ -1,4 +1,4 @@
-header {
+.header-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -7,7 +7,7 @@ header {
     padding-right: 22px;
 }
 
-.left-box {
+.header-left-box {
     height: 100%;
     display: flex;
     align-items: center;
@@ -33,7 +33,7 @@ header {
     }
 }
 
-.right-box {
+.header-right-box {
     display: flex;
     justify-content: center;
     align-items: center;

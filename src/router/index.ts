@@ -1,11 +1,3 @@
-/*
- * @Author: luoxi
- * @Date: 2022-01-25 09:51:12
- * @LastEditors: luoxi
- * @LastEditTime: 2022-01-25 12:25:51
- * @FilePath: \vue-admin-box\src\router\index.ts
- * @Description: 
- */
 /**
  * @description 所有人可使用的参数配置列表
  * @params hideMenu: 是否隐藏当前路由结点不在导航中展示
@@ -66,10 +58,10 @@ router.beforeEach((to, _from, next) => {
 });
 
 // 路由跳转后的监听操作
-router.afterEach((to, _from) => {
+router.afterEach((to: any, _from) => {
   const storekeep = useStoreKeep()
-  const keepAliveComponentsName = storekeep.keepAliveComponentsNames || [];
-  const name = to.matched[to.matched.length - 1].components.default.name
+  const keepAliveComponentsName: string[] = storekeep.keepAliveComponentsNames || [];
+  const name: string = to.matched[to.matched.length - 1].components.default.name
   if (to.meta && to.meta.cache && name && !keepAliveComponentsName.includes(name)) {
     storekeep.addKeepAliveComponentsName(name);
   }

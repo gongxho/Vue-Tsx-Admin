@@ -1,6 +1,7 @@
 import type { Route } from '../index.type'
 import Layout from '/@/layout/index'
 import { createNameComponent } from '../createNode'
+
 const route: Route[] = [
   {
     path: '/systemManage',
@@ -12,27 +13,27 @@ const route: Route[] = [
       {
         path: 'dept',
         component: createNameComponent(() => import('/@/views/systemManage/dept/index.vue')),
-        meta: { title: 'dept' }
+        meta: { title: 'dept', cache: true, }
       },
       {
         path: 'dic',
         component: createNameComponent(() => import('/@/views/systemManage/dic/index')),
-        meta: { title: 'dic' }
+        meta: { title: 'dic', cache: true, }
       },
       {
         path: 'menu',
         component: createNameComponent(() => import('/@/views/systemManage/menu/index')),
-        meta: { title: 'message.menu.systemManage.menu' }
+        meta: { title: 'menu', cache: true, }
       },
       {
         path: 'role',
         component: createNameComponent(() => import('/@/views/systemManage/role/index.vue')),
-        meta: { title: 'message.menu.systemManage.role' }
+        meta: { title: 'role', cache: true, }
       },
       {
         path: 'user',
         component: createNameComponent(() => import('/@/views/systemManage/users/index')),
-        meta: { title: 'message.menu.systemManage.user' }
+        meta: { title: 'user', cache: true, }
       }
     ]
   }

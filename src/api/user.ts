@@ -40,6 +40,5 @@ export function getMenuApi() {
   return request({
     url: '/menu/list',
     method: 'post',
-    baseURL: '/mock'
   })
 }

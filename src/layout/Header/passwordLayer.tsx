@@ -8,9 +8,7 @@ import type { LayerType } from '/@/components/layer/index'
 import { passwordChange } from '/@/api/user'
 
 export default defineComponent({
-  components: {
-    Layer
-  },
+  components: { Layer },
   props: {
     layer: {
       type: Object,
@@ -23,7 +21,7 @@ export default defineComponent({
       }
     }
   },
-  setup(props, {slots}) {
+  setup(props, { slots }) {
     const ruleForm: Ref<FormItemContext | null> = ref(null)
     const layerDom: Ref<LayerType | null> = ref(null)
     const store = useStore()
@@ -47,37 +45,29 @@ export default defineComponent({
               old: form.old,
               new: form.new
             }
-            const res:any = await passwordChange(params)
-            console.log('validate', res.data);
+            const res: any = await passwordChange(params)
             if (res.code == 200) {
-                ElMessage({
-                  type: 'success',
-                  message: res.msg
-                })
-                console.log(layerDom.value)
-                layerDom.value && layerDom.value.close()
-                setTimeout(() => {
-                  store.loginOut()
-                }, 2000)
-            }         
-          } else {
-            return false;
+              ElMessage({ type: 'success', message: res.msg })
+              layerDom.value && layerDom.value.close()
+              store.loginOut()
+            }
           }
+          else { return false }
         });
       }
     }
     return () => (
       <Layer layer={props.layer} onConfirm={() => submit()} ref={layerDom}>
-      <el-form model={form} rules={rules} ref={ruleForm} label-width="120px" style="margin-right:30px;">
-        <el-form-item label="用户名：" prop="name" >{form.name}</el-form-item>
-        <el-form-item label="原密码：" prop="old">
-          <el-input v-model={form.old} placeholder="请输入原密码" show-password></el-input>
-        </el-form-item>
-        <el-form-item label="新密码：" prop="new">
-          <el-input v-model={form.new} placeholder="请输入新密码" show-password></el-input>
-        </el-form-item>
-      </el-form>
-    </Layer>
+        <el-form model={form} rules={rules} ref={ruleForm} label-width="120px" style="margin-right:30px;">
+          <el-form-item label="用户名：" prop="name" >{form.name}</el-form-item>
+          <el-form-item label="原密码：" prop="old">
+            <el-input v-model={form.old} placeholder="请输入原密码" show-password></el-input>
+          </el-form-item>
+          <el-form-item label="新密码：" prop="new">
+            <el-input v-model={form.new} placeholder="请输入新密码" show-password></el-input>
+          </el-form-item>
+        </el-form>
+      </Layer>
     )
   }
 })

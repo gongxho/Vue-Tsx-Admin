@@ -5,13 +5,13 @@
 				<el-input size="default" placeholder="请输入角色名称" style="max-width: 180px"> </el-input>
 				<el-button size="default" type="primary" class="ml10">
 					<el-icon>
-						<ele-Search />
+						<Search />
 					</el-icon>
 					查询
 				</el-button>
 				<el-button size="default" type="success" class="ml10" @click="onOpenAddRole">
 					<el-icon>
-						<ele-FolderAdd />
+						<FolderAdd />
 					</el-icon>
 					新增角色
 				</el-button>
@@ -60,6 +60,7 @@
 <script lang="ts">
 import { toRefs, reactive, onMounted, ref, defineComponent } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
+import {Search, FolderAdd} from '@element-plus/icons-vue';
 import AddRole from '/@/views/systemManage/role/component/addRole.vue';
 import EditRole from '/@/views/systemManage/role/component/editRole.vue';
 
@@ -86,7 +87,7 @@ interface TableDataState {
 
 export default defineComponent({
 	name: 'systemRole',
-	components: { AddRole, EditRole },
+	components: { Search, FolderAdd, AddRole, EditRole },
 	setup() {
 		const addRoleRef = ref();
 		const editRoleRef = ref();

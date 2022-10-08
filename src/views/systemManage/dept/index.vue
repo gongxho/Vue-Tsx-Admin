@@ -5,13 +5,13 @@
 				<el-input size="default" placeholder="请输入部门名称" style="max-width: 180px"> </el-input>
 				<el-button size="default" type="primary" class="ml10">
 					<el-icon>
-						<ele-Search />
+						<Search />
 					</el-icon>
 					查询
 				</el-button>
 				<el-button size="default" type="success" class="ml10" @click="onOpenAddDept">
 					<el-icon>
-						<ele-FolderAdd />
+						<FolderAdd />
 					</el-icon>
 					新增部门
 				</el-button>
@@ -54,6 +54,7 @@
 <script lang="ts">
 import { ref, toRefs, reactive, onMounted, defineComponent } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
+import {Search, FolderAdd} from '@element-plus/icons-vue';
 import AddDept from '/@/views/systemManage/dept/component/addDept.vue';
 import EditDept from '/@/views/systemManage/dept/component/editDept.vue';
 
@@ -81,7 +82,7 @@ interface TableDataState {
 
 export default defineComponent({
 	name: 'systemDept',
-	components: { AddDept, EditDept },
+	components: { Search, FolderAdd, AddDept, EditDept },
 	setup() {
 		const addDeptRef = ref();
 		const editDeptRef = ref();

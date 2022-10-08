@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <el-tooltip class="item" effect="dark" :content="tip" placement="top">
     <div class="theme-icon" @click="handleClick">
       <div class="theme-icon-sidebar">
@@ -127,4 +127,4 @@ export default defineComponent({
   .theme-icon+.theme-icon{
     margin-left: 12px;
   }
-</style>
+</style> -->

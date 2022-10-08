@@ -2,19 +2,19 @@ import { defineComponent, computed, reactive, ref } from 'vue'
 import { useStore } from '/@/stores/user'
 import { useStoreApp } from '/@/stores/app'
 import { useRouter, useRoute } from 'vue-router'
-// import FullScreen from './functionList/fullscreen.vue'
-// import Word from './functionList/word.vue'
-// import SizeChange from './functionList/sizeChange.vue'
-import Github from './functionList/github'
 import { Expand, Fold } from '@element-plus/icons-vue'
-// import Theme from './functionList/theme.vue'
 import Breadcrumb from './Breadcrumb'
 import PasswordLayer from './passwordLayer'
 import './index.scss'
+import FullScreen from './functionList/fullscreen'
+import Github from './functionList/github'
+// import Word from './functionList/word.vue'
+// import SizeChange from './functionList/sizeChange.vue'
+// import Theme from './functionList/theme.vue'
 
 export default defineComponent({
   components: {
-    // FullScreen,
+    FullScreen,
     Breadcrumb,
     // Word,
     // SizeChange,
@@ -39,27 +39,13 @@ export default defineComponent({
     }
 
     // login out the system
-    const loginOut = () => {
-      store.loginOut()
-    }
+    const loginOut = () => store.loginOut()
 
-    const showPasswordLayer = () => {
-      layer.show = true
-    }
+    const showPasswordLayer = () => layer.show = true
 
-    const slots = {
-      dropdown: () => {
-        return (
-          <el-dropdown-menu>
-            <el-dropdown-item onClick={showPasswordLayer}>修改密码</el-dropdown-item>
-            <el-dropdown-item onClick={loginOut}>退出登录</el-dropdown-item>
-          </el-dropdown-menu>
-        )
-      }
-    }
     return () => (
-      <header>
-        <div class="left-box">
+      <header class="header-box">
+        <div class="header-left-box">
           {/* <!-- 收缩按钮 --> */}
           <div class="menu-icon" onClick={() => opendStateChange()}>
             <el-icon>
@@ -68,20 +54,31 @@ export default defineComponent({
           </div>
           <Breadcrumb />
         </div>
-        <div class="right-box">
+        <div class="header-right-box">
           {/* <!-- 快捷功能按钮 --> */}
           <div class="function-list">
-            {/* <div class="function-list-item hidden-sm-and-down"><Full-screen /></div>
-          <div class="function-list-item"><Word /></div>
-          <div class="function-list-item"><SizeChange /></div>
-          <div class="function-list-item hidden-sm-and-down"><Theme /></div> */}
-            <div class="function-list-item hidden-sm-and-down">
-              <Github />
-            </div>
+            <div class="function-list-item hidden-sm-and-down"><Full-screen /></div>
+            {/* 
+            <div class="function-list-item"><Word /></div>
+            <div class="function-list-item"><SizeChange /></div>
+            <div class="function-list-item hidden-sm-and-down"><Theme /></div> 
+            */}
+            <div class="function-list-item hidden-sm-and-down"><Github /></div>
           </div>
           {/* <!-- 用户信息 --> */}
           <div class="user-info">
-            <el-dropdown v-slots={slots}>
+            <el-dropdown v-slots={
+              {
+                dropdown: () => {
+                  return (
+                    <el-dropdown-menu>
+                      <el-dropdown-item onClick={showPasswordLayer}>修改密码</el-dropdown-item>
+                      <el-dropdown-item onClick={loginOut}>退出登录</el-dropdown-item>
+                    </el-dropdown-menu>
+                  )
+                }
+              }
+            }>
               <span class="el-dropdown-link"> admin </span>
             </el-dropdown>
           </div>

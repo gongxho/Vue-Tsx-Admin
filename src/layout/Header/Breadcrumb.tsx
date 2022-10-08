@@ -21,10 +21,10 @@ export default defineComponent({
       () => route.path,
       () => getBreadcrumb()
     );
+
     const handleLink = (event: MouseEvent, item: RouteLocationMatched): any => {
       const { redirect, path } = item;
-      if(event) {
-        console.log(event)
+      if (event) {
         event.preventDefault();
       }
       if (redirect) {
@@ -36,15 +36,17 @@ export default defineComponent({
     return () => (
       <el-breadcrumb class="app-breadcrumb hidden-sm-and-down" separator="/">
         <TransitionGroup appear name="breadcrumb">
-          {levelList.value.map((item, index) => (
-            <el-breadcrumb-item key={index}>
-              {
-                (item.redirect === 'noRedirect' || index == levelList.value.length - 1)
-                  ? <span class="no-redirect">{item.meta.title}</span>
-                  : <a onClick={(event) => handleLink(event,item)}> {item.meta.title} </a>
-              }
-            </el-breadcrumb-item>
-          ))}
+          {
+            levelList.value.map((item, index) => (
+              <el-breadcrumb-item key={index}>
+                {
+                  (item.redirect === 'noRedirect' || index == levelList.value.length - 1)
+                    ? <span class="no-redirect">{item.meta.title}</span>
+                    : <a onClick={(event) => handleLink(event, item)}> {item.meta.title} </a>
+                }
+              </el-breadcrumb-item>
+            ))
+          }
         </TransitionGroup>
       </el-breadcrumb>
     );

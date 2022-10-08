@@ -6,7 +6,7 @@ import Logo from "./Logo/index";
 import Menu from "./Menu/index";
 import Header from "./Header/index";
 import './index.scss'
-// import Tabs from "./Tabs/index.vue";
+import Tabs from "./Tabs/index";
 
 export default defineComponent({
     components: {
@@ -15,7 +15,7 @@ export default defineComponent({
         Logo,
         Menu,
         Header,
-        // Tabs,
+        Tabs,
     },
     setup() {
         const store = useStoreApp();
@@ -47,18 +47,19 @@ export default defineComponent({
         const hideMenu = () => {
             store.isCollapseChange(true);
         };
+        console.log(keepAliveComponentsName.value)
         return () => (
             <div>
                 <el-container style="height: 100vh">
                     <div
                         class="mask"
-                        // v-show={isCollapse.value && contentFullScreen.value}
+                        v-show={isCollapse.value && contentFullScreen.value}
                         onClick={hideMenu}
                     ></div>
                     <el-aside
                         width={!isCollapse.value ? '60px' : '200px'}
-                        // class={isCollapse.value ? 'hide-aside' : 'show-side'}
-                        // v-show={contentFullScreen.value}
+                    // class={isCollapse.value ? 'hide-aside' : 'show-side'}
+                    // v-show={contentFullScreen.value}
                     >
                         {showLogo ? <Logo /> : null}
                         <Menu />
@@ -67,30 +68,20 @@ export default defineComponent({
                         <el-header v-show={!contentFullScreen.value}>
                             <Header />
                         </el-header>
-                        {/* <Tabs v-show={showTabs} /> */}
+                        <Tabs v-show={showTabs} />
                         <el-main>
-                            {/* 
-                            <router-view v-slots={ Component, route }>
-                                <Transition
-                                    name={'fade-transform'}
-                                    mode="out-in"
-                                >
-                                    {
-                                        keepAliveComponentsName
-                                            ? <KeepAlive include="keepAliveComponentsName" >{h(resolveComponent(tabComponent.value))}</KeepAlive>
-                                            : h(resolveComponent(tabComponent.value))
-                                    }
-                                </Transition>
-                            </router-view> 
-                            */}
                             <router-view v-slots={{
-                                default: (scope:any) => (
+                                default: (scope: any) => (
                                     <Transition name={'fade-transform'} mode="out-in">
-                                        <KeepAlive>{scope.Component}</KeepAlive>
+                                        {
+                                            keepAliveComponentsName.value
+                                                ? <KeepAlive include={keepAliveComponentsName.value}>{scope.Component}</KeepAlive>
+                                                : scope.Component
+                                        }
                                     </Transition>
                                 ),
                             }}
-                            ></router-view>
+                            />
                         </el-main>
                     </el-container>
                 </el-container>

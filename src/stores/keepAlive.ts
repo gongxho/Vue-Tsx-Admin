@@ -13,7 +13,7 @@ export interface keepAliveState {
 // 第一个参数是应用程序中 store 的唯一 id
 export const useStoreKeep = defineStore('keepAlive', {
   // 定义应用程序的状态
-  state: () => ({
+  state: ():keepAliveState => ({
     keepAliveComponentsName: [] // 需要缓存的组件名称
   }),
   getters: {

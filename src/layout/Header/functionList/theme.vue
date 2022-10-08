@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div :title="$t('message.system.setting.name')" @click="drawerChange(true)">
     <i class="sfont system-shezhi"></i>
   </div>
@@ -57,8 +57,8 @@ import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
 import themeIcon from './theme/theme-icon.vue'
 import themeColor from './theme/theme-color.vue'
-import type { Style, Colors } from '@/theme/index'
-import { style } from '@/theme/index'
+import type { Style, Colors } from '/@/theme/index'
+import { style } from '/@/theme/index'
 
 interface Option {
   name: string,
@@ -187,4 +187,4 @@ export default defineComponent({
     text-align: left;
     padding-left: 20px;
   }
-</style>
+</style> -->

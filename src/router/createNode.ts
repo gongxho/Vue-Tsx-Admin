@@ -2,7 +2,8 @@
 // 2. 用于解决transition动画内部结点只能为根元素的问题，单文件可写多结点
 import type { DefineComponent, Component } from 'vue'
 import { defineComponent, h, createVNode, ref, nextTick } from 'vue'
-import reload from './reload.vue'
+// import reload from './reload.vue'
+import { NextLoading } from '/@/utils/loading'
 import NProgress from '/@/utils/nprogress'
 
 export function createNameComponent(component: () => Promise<any>): () => Promise<DefineComponent<{}, {}, any>> {
@@ -24,7 +25,7 @@ export function createNameComponent(component: () => Promise<any>): () => Promis
                   NProgress.done();
                   isReload.value = false;
                 });
-              }, 260);
+              }, 50);
             };
             return {
               isReload,
@@ -33,8 +34,11 @@ export function createNameComponent(component: () => Promise<any>): () => Promis
           },
           render: function () {
             if (this.isReload) {
-              return h('div', { class: 'el-main-box' }, [h(reload)]);
+              NextLoading.start()
+              return undefined;
+              // return h('div', { class: 'el-main-box' }, [h(reload)]);
             } else {
+              NextLoading.done()
               return h('div', { class: 'el-main-box' }, [createVNode(comm.default)]);
             }
           }

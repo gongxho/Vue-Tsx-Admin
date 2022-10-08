@@ -25,32 +25,13 @@ export default defineComponent({
       required: true
     }
   },
-  directives: {
-    drag
-  },
-  setup(props, ctx) {
-    const confirm = () => {
-      ctx.emit('confirm')
-    }
-    const close = () => {
-      props.layer.show = false
-    }
+  directives: { drag },
+  setup(props, { slots, emit, expose }) {
+    const confirm = () => emit('confirm')
+    const close = () => props.layer.show = false
     // 有选择地暴露局部状态
-    ctx.expose({ close: close })
-    
-    const slots = {
-      footer: () => {
-        console.log(props)
-        return (
-          props.layer.showButton ?
-            <div>
-              <el-button type="primary" onClick={confirm}>确认</el-button>
-              <el-button onClick={close}>取消</el-button>
-            </div>
-            : null
-        )
-      }
-    }
+    expose({ close })
+
     return () => (
       <div v-drag={props.layer.show}>
         <el-dialog
@@ -58,10 +39,18 @@ export default defineComponent({
           title={props.layer.title}
           width={props.layer.width}
           center
-          v-slots={slots}
-        >
+          v-slots={{
+            footer: () => (
+              props.layer.showButton
+                ? <div>
+                  <el-button type="primary" onClick={confirm}>确认</el-button>
+                  <el-button onClick={close}>取消</el-button>
+                </div>
+                : null
+            )
+          }}>
           {/* @ts-ignore */}
-          { ctx.slots ? ctx.slots.default() : console.error(`Unknown 组件未定义`) }
+          {slots ? slots.default() : console.error(`Unknown 组件未定义`)}
         </el-dialog>
       </div>
     )
