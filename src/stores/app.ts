@@ -66,15 +66,5 @@ export const useStoreApp = defineStore('app', {
         menuListChange(arr: []) {
             this.menuList = arr
         },
-        // stateChange(option: Option<appState>) {
-        //     this[option.name] = option.value
-        // }
-        //   setThemeConfig(data: ThemeConfigState) {
-        //     this.themeConfig = data;
-        //   },
-        //   async setUserInfos() {
-        //     const userName = Cookies.get('userName');
-        //     // ...
-        //   },
     },
 })

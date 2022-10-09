@@ -7,9 +7,8 @@ import './404.scss'
 export default defineComponent({
   setup() {
     const router = useRouter()
-    const backHome = () => {
-      router.push('/')
-    }
+    const backHome = () =>  router.push('/')
+    
     return () => (
       <div class="wscn-http404-container layout-container flex center">
         <div class="wscn-http404">

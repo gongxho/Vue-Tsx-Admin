@@ -40,7 +40,7 @@ const myPromise = () => {
   return new Promise((resolve: any, reject: any) => {
     setTimeout(() => {
       resolve()
-    },50)
+    }, 50)
   })
 }
 

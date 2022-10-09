@@ -12,7 +12,7 @@ export const NextLoading = {
 		const bodys: Element = document.body;
 		const div = <HTMLElement>document.createElement('div');
 		div.setAttribute('class', 'loading-next');
-		const htmls = `
+		const htmlx = `
 			<div class="loading-next-box">
 				<div class="loading-next-box-warp">
 					<div class="loading-next-box-item"></div>
@@ -27,7 +27,7 @@ export const NextLoading = {
 				</div>
 			</div>
 		`;
-		div.innerHTML = htmls;
+		div.innerHTML = htmlx;
 		bodys.insertBefore(div, bodys.childNodes[0]);
 		window.nextLoading = true;
 	},

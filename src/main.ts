@@ -4,7 +4,7 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import App from './App';
 import pinia from '/@/stores/index';
 import router from '/@/router/index';
-import { getAuthRoutes } from './router/permission'
+import getAuthRoutes from './router/permission'
 import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/display.css'   // 引入基于断点的隐藏类
 import 'normalize.css'                          // css初始化

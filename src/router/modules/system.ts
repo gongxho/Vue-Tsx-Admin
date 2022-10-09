@@ -14,7 +14,7 @@ const route: Route[] = [
     component: createNameComponent(() => import('/@/layout/index')),
     hideMenu: true,
     redirect: '/404',
-    meta: { title: 'system',cache: false, icon: 'system'},
+    meta: { title: 'system', cache: false, icon: 'system' },
     children: [
       {
         path: '/404',

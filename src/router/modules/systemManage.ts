@@ -12,7 +12,7 @@ const route: Route[] = [
     children: [
       {
         path: 'dept',
-        component: createNameComponent(() => import('/@/views/systemManage/dept/index.vue')),
+        component: createNameComponent(() => import('/@/views/systemManage/dept/index')),
         meta: { title: 'dept', cache: true, }
       },
       {
@@ -27,7 +27,7 @@ const route: Route[] = [
       },
       {
         path: 'role',
-        component: createNameComponent(() => import('/@/views/systemManage/role/index.vue')),
+        component: createNameComponent(() => import('/@/views/systemManage/role/index')),
         meta: { title: 'role', cache: true, }
       },
       {

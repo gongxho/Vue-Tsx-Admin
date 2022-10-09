@@ -11,7 +11,7 @@ export const useStore = defineStore('user', {
     info: {},  // 用户信息
   }),
   getters: {
-    tokens:(state) => {
+    tokens: (state) => {
       return state.token
     }
   },
@@ -26,48 +26,48 @@ export const useStore = defineStore('user', {
     async login(params: any) {
       return new Promise((resolve, reject) => {
         loginApi(params)
-        .then(res => {
-          this.tokenChange(res.data.token)
-          this.getInfo({ token: res.data.token })
-          .then(infoRes => {
-            resolve(res.data)
+          .then(res => {
+            this.tokenChange(res.data.token)
+            this.getInfo({ token: res.data.token })
+              .then(infoRes => {
+                resolve(res.data)
+              })
+          }).catch(err => {
+            reject(err)
           })
-        }).catch(err => {
-          reject(err)
-        })
       })
     },
     // get user info after user logined
-    async getInfo( params: any) {
+    async getInfo(params: any) {
       return new Promise((resolve, reject) => {
         getInfoApi(params)
-        .then(res => {
-          this.infoChange(res.data.info)
-          resolve(res.data.info)
-        })
+          .then(res => {
+            this.infoChange(res.data.info)
+            resolve(res.data.info)
+          })
       })
     },
-  
+
     // login out the system after user click the loginOut button
     async loginOut() {
       // loginOutApi()
       // .then(() => { })
       // .catch(() => { })
       // .finally(() => {
-        localStorage.removeItem('tabs')
-        localStorage.removeItem('vuex')
-        sessionStorage.removeItem('vuex')
-        Session.clear()
-        location.reload()
+      localStorage.removeItem('tabs')
+      localStorage.removeItem('vuex')
+      sessionStorage.removeItem('vuex')
+      Session.clear()
+      location.reload()
       // })
     }
-  //   setThemeConfig(data: ThemeConfigState) {
-  //     this.themeConfig = data;
-  //   },
-  //   async setUserInfos() {
-  //     const userName = Cookies.get('userName');
-  //     // ...
-  //   },
+    //   setThemeConfig(data: ThemeConfigState) {
+    //     this.themeConfig = data;
+    //   },
+    //   async setUserInfos() {
+    //     const userName = Cookies.get('userName');
+    //     // ...
+    //   },
   },
   // other options...
 })

@@ -20,6 +20,7 @@
 	<p>&nbsp;</p>
 </div>
 
+- QQ交流群：475555266，有问题群里反馈，可及时解决
 # Vue3与TSX内测版
 WIP: Vue3(TSX) + Vite + TypeScript + Element-Plus + Pinia + Axios
 ### 修改入口文件
@@ -56,11 +57,12 @@ declare module '*.jpg';
 ### 集成vue-router
 ```bash
 yarn add --dev vue-router@4.0.4
+
 ```
 这里可以去`npm官网`查找最新版本  
 在src目录下，`新建router文件夹`，并在文件夹内`创建index.ts`
 `index.ts`:
-```js
+```javascript
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
@@ -90,7 +92,7 @@ export default router;
 
 ### TSX
 最终我们的组件代码，都会是这样的：`App.tsx`:  
-```js
+```javascript
 import { defineComponent } from 'vue';
 import {RouterLink, RouterView} from 'vue-router';
 import './style/main.scss'

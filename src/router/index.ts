@@ -6,11 +6,11 @@
 import { reactive } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { Session } from '/@/utils/storage';
-import {useStore} from '/@/stores/user'
-import {useStoreKeep} from '/@/stores/keepAlive'
-// import i18n from '/@/locale'
+import { useStore } from '/@/stores/user'
+import { useStoreKeep } from '/@/stores/keepAlive'
 import NProgress from '/@/utils/nprogress'
 import { changeTitle } from '/@/utils/title'
+// import i18n from '/@/locale'
 
 NProgress.configure({ showSpinner: false })
 
@@ -26,7 +26,6 @@ let modules = [
   ...System
 ]
 
-console.log(modules)
 // const { t } = i18n.global
 
 const router = createRouter({
