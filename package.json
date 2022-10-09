@@ -3,19 +3,23 @@
   "version": "1.0.0-alpha",
   "scripts": {
     "dev": "vite",
-    "build": "vuedx-typecheck . && vite build",
+    "build": "vite build",
+    "build-only": "vuedx-typecheck . && vite build",
     "preview": "vite preview --port 4173",
-    "test:unit": "vitest --environment jsdom",
-    "build-only": "vite build"
+    "test:unit": "vitest --environment jsdom"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.9",
     "axios": "^0.27.2",
     "element-plus": "^2.2.17",
     "js-cookie": "^3.0.1",
+    "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
+    "path-browserify": "^1.0.1",
     "pinia": "^2.0.21",
+    "qrcodejs2-fixes": "^0.0.2",
     "screenfull": "^6.0.2",
+    "sortablejs": "^1.15.0",
     "vue": "^3.2.38",
     "vue-router": "^4.1.5"
   },

@@ -28,14 +28,17 @@ export default defineConfig(({ mode }) => {
     define: { __APP_ENV__: env.APP_ENV }, // --- 定义全局常量替换方式
     plugins: [vue(), vueJsx()],       // ----------------- 需要用到的插件数组
     resolve: { alias },     // ----------------- 定义文件路径别名，当使用文件系统路径的别名时，请始终使用绝对路径，否则无法解析
-    css: {                  // ----------------- css 配置
-      postcss: {          // ----------------- 内联的 PostCSS 配置
-        plugins: [{
-          postcssPlugin: 'internal:charset-removal',
-          AtRule: { charset: (atRule) => { if (atRule.name === 'charset') { atRule.remove() } } },
-        }],
-      },
-    },
+    // css: {                  // ----------------- css 配置
+    //   postcss: {          // ----------------- 内联的 PostCSS 配置
+    //     modules:{
+    //       localsConvention:'camelCase'
+    //     },
+    //     plugins: [{
+    //       postcssPlugin: 'internal:charset-removal',
+    //       AtRule: { charset: (atRule) => { if (atRule.name === 'charset') { atRule.remove() } } },
+    //     }],
+    //   },
+    // },
 
     // 开发时服务器配置选项  执行 npm run dev 时
     server: {
@@ -59,18 +62,18 @@ export default defineConfig(({ mode }) => {
       outDir: 'dist',// 指定输出路径（相对于 项目根目录)
       sourcemap: false, // 构建后是否生成 source map 文件
       chunkSizeWarningLimit: 1500, // 规定触发警告的 chunk(文件块) 大小
-      rollupOptions: {  // 自定义底层的 Rollup 打包配置
-        output: {
-          entryFileNames: `assets/[name].${new Date().getTime()}.js`,
-          chunkFileNames: `assets/[name].${new Date().getTime()}.js`,
-          assetFileNames: `assets/[name].${new Date().getTime()}.[ext]`,
-          compact: true,
-          manualChunks: {
-            vue: ['vue', 'vue-router', 'pinia'],
-            echarts: ['echarts'],
-          },
-        },
-      },
+      // rollupOptions: {  // 自定义底层的 Rollup 打包配置
+      //   output: {
+      //     entryFileNames: `assets/[name].${new Date().getTime()}.js`,
+      //     chunkFileNames: `assets/[name].${new Date().getTime()}.js`,
+      //     assetFileNames: `assets/[name].${new Date().getTime()}.[ext]`,
+      //     compact: true,
+      //     manualChunks: {
+      //       vue: ['vue', 'vue-router', 'pinia'],
+      //       // echarts: ['echarts'],
+      //     },
+      //   },
+      // },
       //生产环境自动删除console
       terserOptions: {
         compress: {

@@ -16,6 +16,5 @@ module.exports = {
 	insertPragma: false,		// 不需要自动在文件开头插入 @prettier
 	proseWrap: 'preserve',		// 使用默认的折行标准 always\never\preserve
 	htmlWhitespaceSensitivity: 'css',	// 指定HTML文件的全局空格敏感度 css\strict\ignore
-	vueIndentScriptAndStyle: fale,		// Vue文件脚本和样式标签缩进
 	endOfLine: 'lf',			// 换行符使用 lf 结尾是 可选值"<auto|lf|crlf|cr>"
 };

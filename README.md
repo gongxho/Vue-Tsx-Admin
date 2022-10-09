@@ -1,3 +1,26 @@
+<div align="center">
+	<img src="./src/assets/tsxtlogo.png">
+	<p align="center">
+	    <a href="https://v3.vuejs.org/" target="_blank">
+	        <img src="https://img.shields.io/badge/vue.js-vue3.x-green" alt="vue">
+	    </a>
+	    <a href="https://element-plus.gitee.io/#/zh-CN/component/changelog" target="_blank">
+	        <img src="https://img.shields.io/badge/element--plus-%3E2.0.0-blue" alt="element plus">
+	    </a>
+		<a href="https://www.tslang.cn/" target="_blank">
+	        <img src="https://img.shields.io/badge/typescript-%3E4.0.0-blue" alt="typescript">
+	    </a>
+		<a href="https://vitejs.dev/" target="_blank">
+		    <img src="https://img.shields.io/badge/vite-%3E3.0.0-yellow" alt="vite">
+		</a>
+		<a href="#" target="_blank">
+		    <img src="https://img.shields.io/badge/license-MIT-success" alt="license">
+		</a>
+	</p>
+	<p>&nbsp;</p>
+</div>
+
+- QQ交流群：475555266，有问题群里反馈，可及时解决
 # Vue3与TSX内测版
 WIP: Vue3(TSX) + Vite + TypeScript + Element-Plus + Pinia + Axios
 ### 修改入口文件
@@ -34,11 +57,12 @@ declare module '*.jpg';
 ### 集成vue-router
 ```bash
 yarn add --dev vue-router@4.0.4
+
 ```
 这里可以去`npm官网`查找最新版本  
 在src目录下，`新建router文件夹`，并在文件夹内`创建index.ts`
 `index.ts`:
-```js
+```javascript
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
@@ -68,7 +92,7 @@ export default router;
 
 ### TSX
 最终我们的组件代码，都会是这样的：`App.tsx`:  
-```js
+```javascript
 import { defineComponent } from 'vue';
 import {RouterLink, RouterView} from 'vue-router';
 import './style/main.scss'
