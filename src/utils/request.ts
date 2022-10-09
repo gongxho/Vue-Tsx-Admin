@@ -1,62 +1,67 @@
-// request.ts
-import axios from 'axios';
-import { ElMessage, ElMessageBox } from 'element-plus';
-import { Session } from '/@/utils/storage';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, AxiosInstance } from 'axios'
+import { useStore } from '/@/stores/user'
+import { ElMessage } from 'element-plus'
 
-// 1、配置新建一个 axios 实例
-const service = axios.create({
-	baseURL: import.meta.env.VITE_API_URL as any,
-	timeout: 50000,
-	headers: { 'Content-Type': 'application/json' },
-});
 
-// 2、添加请求拦截器
+const baseURL: any = 'https://console-mock.apipost.cn/app/mock/project/cf9282ab-1c43-45b1-b8ed-f23c534b9987'
+// const baseURL: any = import.meta.env.VITE_BASE_URL
+
+const service: AxiosInstance = axios.create({
+  baseURL: baseURL,
+  timeout: 5000
+})
+
+// 请求前的统一处理
 service.interceptors.request.use(
-	(config) => {
-		// 在发送请求之前做些什么 token
-		if (Session.get('token')) {
-			(<any>config.headers).common['Authorization'] = `${Session.get('token')}`;
-		}
-		return config;
-	},
-	(error) => {
-		// 对请求错误做些什么
-		return Promise.reject(error);
-	}
-);
+  (config: AxiosRequestConfig) => {
+    console.log(config)
+    // JWT鉴权处理
+    // if (store.tokens) {
+    //   config.headers['token'] = store.token
+    // }
+    return config
+  },
+  (error: AxiosError) => {
+    console.log(error) // for debug
+    return Promise.reject(error)
+  }
+)
 
-// 3、添加响应拦截器
 service.interceptors.response.use(
-	(response) => {
-		// 对响应数据做点什么
-		const res = response.data;
-		if (res.code && res.code !== 0) {
-			// `token` 过期或者账号已在别处登录
-			if (res.code === 401 || res.code === 4001) {
-				Session.clear(); // 清除浏览器全部临时缓存
-				window.location.href = '/'; // 去登录页
-				ElMessageBox.alert('你已被登出，请重新登录', '提示', {})
-					.then(() => {})
-					.catch(() => {});
-			}
-			return Promise.reject(service.interceptors.response);
-		} else {
-			return response.data;
-		}
-	},
-	(error) => {
-		// 对响应错误做点什么
-		if (error.message.indexOf('timeout') != -1) {
-			ElMessage.error('网络超时');
-		} else if (error.message == 'Network Error') {
-			ElMessage.error('网络连接错误');
-		} else {
-			if (error.response.data) ElMessage.error(error.response.statusText);
-			else ElMessage.error('接口路径找不到');
-		}
-		return Promise.reject(error);
-	}
-);
+  (response: AxiosResponse) => {
+    console.log(response.data)
+    const res = response.data
+    if (res.code === 200) {
+      return res
+    } else {
+      showError(res)
+      return Promise.reject(res)
+    }
+  },
+  (error: AxiosError) => {
+    console.log(error) // for debug
+    const badMessage: any = error.message || error
+    const code = parseInt(badMessage.toString().replace('Error: Request failed with status code ', ''))
+    showError({ code, message: badMessage })
+    return Promise.reject(error)
+  }
+)
 
-// 4、导出 axios 实例
-export default service;
+// 错误处理
+function showError(error: any) {
+  const store = useStore()
+  // token过期，清除本地数据，并跳转至登录页面
+  if (error.code === 403) {
+    // to re-login
+    store.loginOut()
+  } else {
+    ElMessage({
+      message: error.msg || error.message || '服务异常',
+      type: 'error',
+      duration: 3 * 1000
+    })
+  }
+
+}
+
+export default service

@@ -1,0 +1,19 @@
+.layout-sidebar-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: #304156;
+
+  .el-menu {
+    border-right: 0;
+  }
+}
+
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
+
+// sub menu收缩时下拉图标隐藏
+.el-tooltip__trigger .el-sub-menu__icon-arrow {
+  display: none;
+}

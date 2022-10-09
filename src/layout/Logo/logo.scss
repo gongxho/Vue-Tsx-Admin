@@ -1,0 +1,13 @@
+.logo-container {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #333446;
+    h1 {
+      font-size: 18px;
+      white-space: nowrap;
+      color: rgb(255, 255, 255);
+    }
+  }

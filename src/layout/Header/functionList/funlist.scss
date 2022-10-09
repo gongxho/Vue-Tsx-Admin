@@ -1,0 +1,14 @@
+a {
+    &:focus {
+        outline: none;
+    }
+}
+
+.icon-github {
+    cursor: pointer;
+    font-size: 18px;
+
+    &:focus {
+        outline: none;
+    }
+}
