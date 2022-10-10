@@ -1,9 +1,5 @@
 <div align="center">
-<<<<<<< HEAD
 	<img src="./src/assets/tsxlogo.png">
-=======
-	<img src="./src/assets/tsxtlogo.png">
->>>>>>> main
 	<p align="center">
 	    <a href="https://v3.vuejs.org/" target="_blank">
 	        <img src="https://img.shields.io/badge/vue.js-vue3.x-green" alt="vue">
