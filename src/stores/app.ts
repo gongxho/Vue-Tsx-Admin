@@ -43,10 +43,18 @@ export const useStoreApp = defineStore('app', {
         expandOneMenu: true,        // 一次是否只能展开一个菜单
         elementSize: 'small',       // element默认尺寸，支持官网'large / default /small'小参数
         lang: '',                   // 默认采用的国际化方案,初次进入，采用浏览器当前设置的语言，默认采用中文
+        /**
+         * 布局切换
+         * 注意：为了演示，切换布局时，颜色会被还原成默认，代码位置：/@/layout/navBars/breadcrumb/setings.vue
+         * 中的 `initSetLayoutChange(设置布局切换，重置主题样式)` 方法
+         */
+        
+        layout: 'defaults',         // 布局切换：可选值"<defaults|classic|transverse|columns>"，默认 defaults
         theme: {
             state: {
                 style: 'default',
                 primaryColor: '#409eff',
+                primaryTextColor: '#fff',
                 menuType: 'side'
             }
         },
@@ -65,6 +73,9 @@ export const useStoreApp = defineStore('app', {
         },
         menuListChange(arr: []) {
             this.menuList = arr
+        },
+        stateChange(option: Option<appState>) {
+            this[option.name] = option.value
         },
     },
 })
