@@ -23,6 +23,8 @@
 - QQ交流群：475555266，有问题群里反馈，可及时解决
 # Vue3与TSX内测版
 WIP: Vue3(TSX) + Vite + TypeScript + Element-Plus + Pinia + Axios
+
+CSS方面会考虑换成Emotion,因为模板自带的样式隔离无法在TSX中使用所以只能使用css-in-js方案
 ### 修改入口文件
 因为默认项目模板是以`src/main.js`为入口的，我们需要把它修改为`src/main.ts`。  
 在`根目录的index.html`中修改入口文件的引用即可：
