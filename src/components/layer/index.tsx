@@ -51,8 +51,7 @@ export default defineComponent({
 							) : null,
 					}}
 				>
-					{/* @ts-ignore */}
-					{slots ? slots.default() : console.error(`Unknown 组件未定义`)}
+					{slots ? slots.default?.() : console.error(`Unknown 组件未定义`)}
 				</el-dialog>
 			</div>
 		);

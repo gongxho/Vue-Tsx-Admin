@@ -1,88 +1,63 @@
-import { defineComponent, computed, onMounted, onBeforeMount, KeepAlive, Transition, h, resolveComponent, resolveDynamicComponent, ref } from 'vue';
+import {
+	onBeforeMount,
+	onUnmounted,
+	getCurrentInstance,
+	defineComponent,
+	defineAsyncComponent,
+	resolveComponent,
+	h,
+	ref,
+	resolveDynamicComponent,
+	computed,
+} from 'vue';
+import { storeToRefs } from 'pinia';
+import { useThemeConfig } from '/@/stores/themeConfig';
 import { useStoreApp } from '/@/stores/app';
-import { useStoreKeep } from '/@/stores/keepAlive';
-import { useEventListener } from '@vueuse/core';
-import { NextLoading } from '/@/utils/loading';
-import Logo from './Logo/index';
-import Menu from './Menu/index';
-import Header from './Header/index';
-import Tabs from './Tabs/index';
-import './index.scss';
+import { Local } from '/@/utils/storage';
 
 export default defineComponent({
-	components: { KeepAlive, Transition, Logo, Menu, Header, Tabs },
-	setup() {
-		const store = useStoreApp();
-		const store_keep = useStoreKeep();
-		// computed
-		const isCollapse = computed(() => store.isCollapse);
-		const contentFullScreen = computed(() => store.contentFullScreen);
-		const showLogo = computed(() => store.showLogo);
-		const showTabs = computed(() => store.showTabs);
-		const keepAliveComponentsName = computed(() => store_keep.keepAliveComponentsNames);
-
-		// 页面宽度变化监听后执行的方法
-		const resizeHandler = () => {
-			if (document.body.clientWidth <= 1000 && !isCollapse.value) {
-				store.isCollapseChange(true);
-			} else if (document.body.clientWidth > 1000 && isCollapse.value) {
-				store.isCollapseChange(false);
-			}
-		};
-
-		// 初始化调用
-		resizeHandler();
-		onBeforeMount(() => {
-			// 监听页面变化
-			useEventListener('resize', resizeHandler);
-		});
-		onMounted(() => {
-			NextLoading.done();
-		});
-
-		// 隐藏菜单
-		const hideMenu = () => store.isCollapseChange(true);
-
-		return () => (
-			<div>
-				<el-container style="height: 100vh">
-					<div class="mask" v-show={isCollapse.value && contentFullScreen.value} onClick={hideMenu} />
-					<el-aside
-						width={!isCollapse.value ? '60px' : '200px'}
-						// class={isCollapse.value ? 'hide-aside' : 'show-side'}
-						// v-show={contentFullScreen.value}
-					>
-						{showLogo ? <Logo /> : null}
-						<Menu />
-					</el-aside>
-					<el-container>
-						<el-header v-show={!contentFullScreen.value}>
-							<Header />
-						</el-header>
-						<Tabs v-show={showTabs} />
-						<el-main>
-							<router-view
-								v-slots={{
-									default: (scope: any) => (
-										<Transition name={'fade-transform'} mode="out-in">
-											{keepAliveComponentsName.value ? (
-												<KeepAlive include={keepAliveComponentsName.value}>{scope.Component}</KeepAlive>
-											) : (
-												scope.Component
-											)}
-										</Transition>
-									),
-								}}
-							/>
-						</el-main>
-					</el-container>
-				</el-container>
-			</div>
-		);
+	name: 'layout',
+	components: {
+		defaults: defineAsyncComponent(() => import('/@/layout/main/defaults')),
+		// classic: defineAsyncComponent(() => import('/@/layout/main/classic.vue')),
+		transverse: defineAsyncComponent(() => import('/@/layout/main/transverse')),
+		// columns: defineAsyncComponent(() => import('/@/layout/main/columns.vue')),
 	},
-	// `<component :is="name"></component>`
+	setup(props, { slots }) {
+		// const { proxy } = getCurrentInstance();
+		const store_app = useStoreApp();
+		let Component = computed(() => store_app.layout);
+		// const storesThemeConfig = useThemeConfig();
+		// const { themeConfig } = storeToRefs(storesThemeConfig);
+		// // 窗口大小改变时(适配移动端)
+		// const onLayoutResize = () => {
+		// 	if (!Local.get('oldLayout')) Local.set('oldLayout', themeConfig.value.layout);
+		// 	const clientWidth = document.body.clientWidth;
+		// 	if (clientWidth < 1000) {
+		// 		themeConfig.value.isCollapse = false;
+		// 		proxy.mittBus.emit('layoutMobileResize', {
+		// 			layout: 'defaults',
+		// 			clientWidth,
+		// 		});
+		// 	} else {
+		// 		proxy.mittBus.emit('layoutMobileResize', {
+		// 			layout: Local.get('oldLayout') ? Local.get('oldLayout') : themeConfig.value.layout,
+		// 			clientWidth,
+		// 		});
+		// 	}
+		// };
+		// // 页面加载前
+		// onBeforeMount(() => {
+		// 	onLayoutResize();
+		// 	window.addEventListener('resize', onLayoutResize);
+		// });
+		// // 页面卸载时
+		// onUnmounted(() => {
+		// 	window.removeEventListener('resize', onLayoutResize);
+		// });
+		return () => <>{h(resolveComponent(Component.value))}</>;
+	},
 	// render() {
-	//     const Component = resolveDynamicComponent(this.name)
-	//     return h(Component)
-	// }
+	// 	return h(resolveDynamicComponent('defaults'));
+	// },
 });

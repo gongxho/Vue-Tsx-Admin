@@ -35,7 +35,7 @@ export default defineComponent({
 		});
 		return () => (
 			<div class="system-table-box">
-				<el-table ref={table} class="system-table" border height="100%" data={props.data} onSelection-change={handleSelectionChange}>
+				<el-table ref={table} class="system-table" border height="100%" max-height="100%" data={props.data} onSelection-change={handleSelectionChange}>
 					{props.showSelection ? <el-table-column type="selection" align="center" width="50" /> : null}
 					{props.showIndex ? (
 						<el-table-column
@@ -47,8 +47,7 @@ export default defineComponent({
 							}}
 						/>
 					) : null}
-					{/* @ts-ignore */}
-					{slots ? slots.default() : console.error(`Unknown 组件未定义`)}
+					{slots ? slots.default?.() : console.error(`Unknown 组件未定义`)}
 				</el-table>
 				{props.showPage ? (
 					<el-pagination

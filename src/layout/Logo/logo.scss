@@ -1,13 +1,38 @@
 .logo-container {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: #333446;
-    h1 {
-      font-size: 18px;
-      white-space: nowrap;
-      color: rgb(255, 255, 255);
-    }
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #333446;
+
+  img {
+    width: 60px;
   }
+
+  h1 {
+    font-size: 18px;
+    white-space: nowrap;
+    color: rgb(255, 255, 255);
+  }
+}
+
+.logo-container-transverse {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  background-color: #ffffff;
+
+  img {
+    width: 40px;
+    height: 40px;
+  }
+
+  h1 {
+    font-size: 18px;
+    white-space: nowrap;
+    color: rgb(255, 255, 255);
+  }
+}

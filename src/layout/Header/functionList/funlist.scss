@@ -12,3 +12,46 @@ a {
         outline: none;
     }
 }
+
+// theme
+i {
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.list {
+    padding: 0 20px;
+
+    &-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+
+        span {
+            font-size: 16px;
+        }
+    }
+}
+
+h3 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, .85);
+    font-size: 14px;
+    line-height: 22px;
+    text-align: left;
+    padding: 0 20px;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+.theme-box {
+    text-align: left;
+    padding-left: 20px;
+}

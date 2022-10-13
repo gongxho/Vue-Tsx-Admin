@@ -134,7 +134,8 @@ export default defineComponent({
 				</div>
 				<div class="layout-container-table">
 					<Table
-						ref="table"
+						// ref="table"
+						style="width: 100%"
 						v-model:page={page}
 						v-loading={loading.value}
 						showSelection={true}
@@ -157,7 +158,7 @@ export default defineComponent({
 									</span>
 								),
 							}}
-						></el-table-column>
+						/>
 						<el-table-column
 							prop="status"
 							label="状态"

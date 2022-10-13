@@ -6,8 +6,8 @@ import './index.scss';
 
 export default defineComponent({
 	setup() {
-		const store = useStoreApp();
-		const isCollapse = computed(() => store.isCollapseNew);
+		const store_app = useStoreApp();
+		const isCollapse = computed(() => store_app.isCollapseNew);
 		const routes = useRouter().options.routes;
 		const isShowRoutes = computed(() => {
 			return routes.filter((item) => !item.meta!.hidden);
@@ -18,23 +18,27 @@ export default defineComponent({
 		const handleSelect = (key: string, keyPath: string[]) => {
 			console.log(key, keyPath);
 		};
+
+		const modename = computed(() => store_app.layout);
+		let mode = modename.value === 'defaults' ? true : false;
+
 		return () => {
 			return (
-				<div class="layout-sidebar-wrapper">
-					<el-scrollbar style="height:100%">
+				<div class="layout-sidebar-wrapper" style={mode ? 'height:100vh' : ''}>
+					<el-scrollbar style={mode ? 'height:100%' : null}>
 						<el-menu
 							default-active={currentPath.value}
 							// default-active={activeIndex.value}
-							backgroundColor="#304156"
+							backgroundColor={mode ? '#304156' : '#FFFFFF'}
 							text-color="#bfcbd9"
 							unique-opened={false}
 							active-text-color="#409EFF"
-							class="el-menu-vertical-demo"
+							class={mode ? 'el-menu-vertical-demo' : null}
 							// class={isCollapse.value? 'collapse': ''}
 							collapse={!isCollapse.value}
 							collapse-transition={false}
 							onSelect={handleSelect}
-							mode="vertical"
+							mode={mode ? 'vertical' : 'horizontal'}
 						>
 							{isShowRoutes.value.map((route) => {
 								return <SidebarItem item={route} basePath={route.path} key={route.path} />;

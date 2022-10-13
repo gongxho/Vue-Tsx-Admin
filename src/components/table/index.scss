@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    height: 100%;
+    height: calc(100vh - 270px);
 
     .system-table {
         flex: 1;
