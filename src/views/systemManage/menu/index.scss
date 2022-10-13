@@ -1,13 +1,13 @@
 .layout-container {
-    padding: 15px;
-    box-sizing: border-box;
+    // padding: 15px;
+    // box-sizing: border-box;
 }
 
-.box {
-    border: 1px solid #eee;
-    overflow-y: auto;
-    height: calc(100%);
-}
+// .box {
+//     border: 1px solid #eee;
+//     overflow-y: auto;
+//     height: calc(100%);
+// }
 
 .my-tree {
     :deep(.el-tree-node__content) {

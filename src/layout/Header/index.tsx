@@ -5,7 +5,6 @@ import { useRouter, useRoute } from 'vue-router';
 import { Expand, Fold } from '@element-plus/icons-vue';
 import Breadcrumb from './Breadcrumb';
 import PasswordLayer from './passwordLayer';
-import Theme from './functionList/theme';
 import FullScreen from './functionList/fullscreen';
 import Github from './functionList/github';
 import SizeChange from './functionList/sizeChange';
@@ -19,7 +18,6 @@ export default defineComponent({
 		Word,
 		SizeChange,
 		Github,
-		Theme,
 		PasswordLayer,
 	},
 	setup() {
@@ -32,6 +30,8 @@ export default defineComponent({
 			showButton: true,
 		});
 		let isCollapse = ref(false);
+		const modename = computed(() => store_app.layout);
+		let mode = modename.value === 'defaults' ? true : false;
 		// isCollapse change to hide/show the sidebar
 		const opendStateChange = () => {
 			store_app.isCollapseChange(!isCollapse.value);
@@ -45,13 +45,15 @@ export default defineComponent({
 
 		return () => (
 			<header class="header-box">
-				<div class="header-left-box">
-					{/* <!-- 收缩按钮 --> */}
-					<div class="menu-icon" onClick={() => opendStateChange()}>
-						<el-icon>{!isCollapse.value ? <Expand /> : <Fold />}</el-icon>
+				{mode ? (
+					<div class="header-left-box">
+						{/* <!-- 收缩按钮 --> */}
+						<div class="menu-icon" onClick={() => opendStateChange()}>
+							<el-icon>{!isCollapse.value ? <Expand /> : <Fold />}</el-icon>
+						</div>
+						<Breadcrumb />
 					</div>
-					<Breadcrumb />
-				</div>
+				) : null}
 				<div class="header-right-box">
 					{/* <!-- 快捷功能按钮 --> */}
 					<div class="function-list">
@@ -63,9 +65,6 @@ export default defineComponent({
 						</div>
 						<div class="function-list-item">
 							<SizeChange />
-						</div>
-						<div class="function-list-item hidden-sm-and-down">
-							<Theme />
 						</div>
 						<div class="function-list-item hidden-sm-and-down">
 							<Github />

@@ -20,7 +20,7 @@ export default defineComponent({
 	components: {
 		defaults: defineAsyncComponent(() => import('/@/layout/main/defaults')),
 		// classic: defineAsyncComponent(() => import('/@/layout/main/classic.vue')),
-		// transverse: defineAsyncComponent(() => import('/@/layout/main/transverse.vue')),
+		transverse: defineAsyncComponent(() => import('/@/layout/main/transverse')),
 		// columns: defineAsyncComponent(() => import('/@/layout/main/columns.vue')),
 	},
 	setup(props, { slots }) {
